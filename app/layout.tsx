@@ -5,6 +5,7 @@ import "@/app/ui/globals.scss";
 import "primereact/resources/primereact.css";
 import "primereact/resources/themes/md-dark-deeppurple/theme.css";
 import { PrimeReactProviders } from "./providers";
+import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
@@ -27,11 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={inter.className + " bg-zinc-900 text-white "}>
+      <body className={inter.className + " bg-[#222]  text-white "}>
         <Header />
-        <div className="mt-2">
+        <div>
           <PrimeReactProviders>{children}</PrimeReactProviders>
         </div>
+        <Footer />
       </body>
     </html>
   );

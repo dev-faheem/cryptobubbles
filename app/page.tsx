@@ -1,5 +1,6 @@
 import { CoingeckoCoinData } from "@/types/coingecko.type";
 import Bubbles from "./ui/Bubbles";
+import MarketInfo from "./ui/MarketInfo";
 export const dynamic = "force-dynamic";
 
 const STABLECOIN_IDS = [
@@ -43,5 +44,6 @@ async function getCoins(): Promise<CoingeckoCoinData[]> {
 export default async function Main() {
   const stablecoins = await getCoins();
 
-  return <Bubbles coins={stablecoins} />;
+  return <Bubbles coins={stablecoins} />
+  return <MarketInfo coins={stablecoins} />;
 }

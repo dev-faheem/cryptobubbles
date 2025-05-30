@@ -1,7 +1,17 @@
 "use client";
 
+import MarketInfo from "../MarketInfo";
 import Bubbles from "./Bubbles";
 
-export default function BubblesPage({ coins }: any) {
-  return <Bubbles coins={coins} />;
+type Props = {
+  coins: any; 
+};
+
+export default function BubblesPage({ coins }: Props) {
+  return (
+    <div>
+      <Bubbles coins={coins} />
+      <MarketInfo coins={coins} />
+    </div>
+  );
 }

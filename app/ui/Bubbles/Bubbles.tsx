@@ -113,9 +113,9 @@ export default function Bubbles({ coins = [] }: Props) {
   }, [bubbleSort, coins, circles, scalingFactor]);
 
   return (
-    <div className="flex rounded px-2 overflow-hidden bg-zinc-900 md:flex-col flex-col-reverse">
+    <div className="flex rounded overflow-hidden bg-[#222] md:flex-col flex-col-reverse">
       <NavigationBar bubbleSort={bubbleSort} setBubbleSort={setBubbleSort} />
-      <div style={{ height: "84vh" }} className="bg-zinc-900 w-full overflow-hidden border-2 rounded border-gray-800" ref={appRef}></div>
+      <div style={{ height: "84vh" }} className="bg-[#222] w-full overflow-hidden border-2 rounded border-gray-800" ref={appRef}></div>
       {isLoading && <Loader />}
     </div>
   );

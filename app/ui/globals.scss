@@ -4,16 +4,27 @@
 
 /* primereact */
 
+@font-face {
+  font-family: verdana;
+  src: url('../../public/verdana-font-family/verdana.woff') format('woff')
+}
+body{
+  font: 20px Verdana, Arial, sans-serif;
+  
+}
+h2{
+  font-size: 1.5em;
+}
 #coins-table {
   overflow: hidden;
   margin: 0 auto;
-  max-width: 1680px;
+  max-width: unset;
 }
 
 #coins-table .p-datatable .p-datatable-tbody > tr > td {
   padding: 0 0.5rem;
-  border-top: 1px solid var(--surface-border);
-  height: 6rem;
+  // border-top: 1px solid var(--surface-border);
+  // height: 6rem;
 }
 
 #coins-table .p-progressbar {
@@ -27,7 +38,7 @@
 }
 
 .p-progressbar .p-progressbar-label {
-  line-height: 1.5rem !important;
+  line-height: 1.5rem !important; 
 }
 
 #coins-table .p-progressbar-determinate .p-progressbar-value {
@@ -43,7 +54,7 @@
 
 #coins-table .p-datatable-scrollable .p-frozen-column {
   z-index: 100;
-  border-right: 1px solid var(--surface-border);
+  // border-right: 1px solid var(--surface-border);
   max-width: 12rem;
 }
 
@@ -51,4 +62,13 @@
   html {
     font-size: 12px;
   }
+}
+ul li.selected:nth-child(-n+3) {
+  border: 2px solid rgb(255, 102, 102);
+  border-top: none;
+}
+
+ul li.selected:nth-child(n+4) {
+  border: 2px solid rgb(51, 255, 51);
+  border-top: none;
 }
