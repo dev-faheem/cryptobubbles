@@ -3,7 +3,11 @@
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
-export default function NavigationBar() {
+interface NavigationBarProps {
+  onClick: () => void;
+}
+
+export default function NavigationBar({ onClick }: NavigationBarProps) {
   const pathname = usePathname();
 
   const handleScrollToTable = () => {
@@ -33,12 +37,9 @@ export default function NavigationBar() {
 
       <li>
         <button
-          className={clsx(
-            "inline-flex items-center justify-center text-white cursor-pointer",
-            "bg-[#ffffff1f] border-zinc-800",
-            "rounded-full p-[10px] m-0 transition-colors duration-[400ms]"
-          )}
+          className={clsx("inline-flex items-center justify-center text-white cursor-pointer", "bg-[#ffffff1f] border-zinc-800", "rounded-full p-[10px] m-0 transition-colors duration-[400ms]")}
           title="Settings"
+          onClick={onClick}
         >
           <svg viewBox="0 0 24 24" className="fill-current h-6 w-6 pointer-events-none">
             <path
