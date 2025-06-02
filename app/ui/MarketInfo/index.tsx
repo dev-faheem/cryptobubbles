@@ -47,7 +47,7 @@ function generateChartData(data: SparklineData) {
 
 export default function MarketInfo({ coins }: Props) {
   return (
-    <div className="bg-[#222]">
+    <div className="bg-[#222] pl-[15px]">
       <div id="coins-table">
         <DataTable rows={20} scrollable lazy stripedRows loading={!coins.length} value={coins}>
           <Column frozen body={(data) => <CoinName coin={data} />} header="Coin"></Column>
