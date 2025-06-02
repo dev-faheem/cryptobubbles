@@ -9,7 +9,7 @@ export default function Loader() {
         <h3 className="text-2xl">Loading data</h3>
         <p>It can take some time to first load..</p>
         <div className="w-full flex justify-center items-center mt-8 animate-bounce ">
-          <Image src={"/logo.png"} alt={"logo"} width={100} height={100} />
+          <Image src={"/logo64.png"} alt={"logo-icon"} width={100} height={100} />
         </div>
       </div>
     </div>

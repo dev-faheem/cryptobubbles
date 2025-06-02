@@ -139,7 +139,8 @@ export default function Header() {
         </button>
 
         {showCurrencyDropdown && (
-         <div className="absolute right-0 mt-[42px] rounded-md shadow-lg z-50 max-h-[26.5rem] overflow-auto flex w-[63%] gap-[10%] bg-[#444444e6] bg-opacity-80 backdrop-blur-md text-white">
+         <div className="absolute right-0 mt-[42px] w-[300px] rounded-md shadow-lg z-50 max-h-[26.5rem] overflow-auto flex gap-[10%] bg-[#444444e6] bg-opacity-80 backdrop-blur-md text-white">
+
             <ul>
               <li className="text-gray-400 pt-4 px-5 pb-1">Fiat</li>
               {currencies.map((currency, index) => (

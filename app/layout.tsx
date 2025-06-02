@@ -15,7 +15,7 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL ? `${process.env.NEXT_PUBLIC_
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "CryptoBubbles | Interactive visualization using Pixi.js!",
+    default: "STABLE STATES | Interactive visualization using Pixi.js!",
     template: `%s | CryptoBubbles`,
   },
   description: "General info abouttop 250 cryptocurrencies.",

@@ -72,3 +72,8 @@ ul li.selected:nth-child(n+4) {
   border: 2px solid rgb(51, 255, 51);
   border-top: none;
 }
+@media only screen and (max-width: 600px) {
+.w-\[63\%\] {
+    width: 100%;
+}
+}
