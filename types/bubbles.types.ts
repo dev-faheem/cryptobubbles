@@ -28,3 +28,4 @@ export type Circle = {
   image: string;
   text2: Text | null;
 };
+

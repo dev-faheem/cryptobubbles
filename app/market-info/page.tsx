@@ -42,5 +42,5 @@ async function getCoins(): Promise<CoingeckoCoinData[]> {
 export default async function MarketInfoPaage() {
   const coins = await getCoins();
 
-  return <MarketInfo coins={coins} />;
+  return <MarketInfo />;
 }

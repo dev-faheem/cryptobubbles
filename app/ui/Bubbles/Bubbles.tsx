@@ -31,6 +31,7 @@ export default function Bubbles({ coins = [] }: Props) {
     if (coins) {
       const scalingFactor = BubblesUtils.getScalingFactor(coins, PriceChangePercentage.HOUR);
       const shapes = BubblesUtils.generateCircles(coins, scalingFactor);
+      console.log(shapes, "shapes>>>>>>>>>>>>>>>>>");
       setCircles(shapes);
     }
   }, [coins]);

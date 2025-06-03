@@ -46,20 +46,15 @@ const CustomSelect = ({ width, options, value, onChange }: Props) => {
       </button>
 
       {showDropdown && (
-        <div
-          className={`absolute right-0 mt-[8px] rounded-md shadow-lg z-50 max-h-[26.5rem] max-w-80 overflow-auto flex gap-[10%] bg-[#444444e6] backdrop-blur-md text-white  ${
-            width ? `w-[${width}]` : "w-full"
-          }`}
-        >
+        <div className={`absolute right-0 mt-[8px] rounded-md shadow-lg z-50 max-h-[26.5rem] overflow-auto flex gap-[10%] bg-[#444444e6] backdrop-blur-md text-white ${width ? width : "w-full"}`}>
           {options.map(({ title, option }, i) => (
             <ul key={i}>
-              {title && <li className="text-gray-400 pt-4 px-5 pb-1">{title}</li>}
+              {title && <li className="text-gray-400 pt-4 pl-5 pb-1">{title}</li>}
               {option.map((item) => (
                 <li key={item.value} className="px-4 py-2 hover:bg-[#9ca3af4f] cursor-pointer flex items-center gap-2" onClick={() => handleSelect(item)}>
                   <input type="radio" name="currency" checked={value?.value === item.value} readOnly className="cursor-pointer" />
                   {item.img ? <img src={item.img} alt={item.label} className="w-5 h-5 object-contain" /> : <span className="text-[#ccc]">{item?.symbol}</span>}
                   <span>{item.label}</span>
-                  {/* <span className="ml-auto">{item.value}</span> */}
                 </li>
               ))}
             </ul>

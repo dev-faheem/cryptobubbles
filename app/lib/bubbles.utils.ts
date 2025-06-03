@@ -81,27 +81,25 @@ export class BubblesUtils {
         circle.x += circle.vx;
         circle.y += circle.vy;
 
-        // Check for collisions with walls
         if (circle.x - circle.radius < 0) {
-          circle.x = circle.radius; // Keep the circle inside the left wall
+          circle.x = circle.radius;
           circle.vx *= -1;
-          circle.vx *= 1 - wallDamping; // Apply wall damping
+          circle.vx *= 1 - wallDamping;
         } else if (circle.x + circle.radius > width) {
-          circle.x = width - circle.radius; // Keep the circle inside the right wall
+          circle.x = width - circle.radius;
           circle.vx *= -1;
-          circle.vx *= 1 - wallDamping; // Apply wall damping
+          circle.vx *= 1 - wallDamping;
         }
         if (circle.y - circle.radius < 0) {
-          circle.y = circle.radius; // Keep the circle inside the top wall
+          circle.y = circle.radius;
           circle.vy *= -1;
-          circle.vy *= 1 - wallDamping; // Apply wall damping
+          circle.vy *= 1 - wallDamping;
         } else if (circle.y + circle.radius > height) {
-          circle.y = height - circle.radius; // Keep the circle inside the bottom wall
+          circle.y = height - circle.radius;
           circle.vy *= -1;
-          circle.vy *= 1 - wallDamping; // Apply wall damping
+          circle.vy *= 1 - wallDamping;
         }
 
-        // Check for collisions with other circles
         for (let j = i + 1; j < circles.length; j++) {
           const otherCircle = circles[j];
           const dx = otherCircle.x - circle.x;
@@ -109,10 +107,8 @@ export class BubblesUtils {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < circle.radius + otherCircle.radius) {
-            // Colliding circles
             const angle = Math.atan2(dy, dx);
 
-            // Calculate the new velocities after collision with elasticity
             const totalRadius = circle.radius + otherCircle.radius;
             const overlap = totalRadius - distance;
             const force = overlap * elasticity;

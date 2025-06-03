@@ -386,7 +386,7 @@ export default function Header() {
               <div className="flex justify-between items-center mb-5">
                 <h2 className="text-xl text-[#ccc]">Currency</h2>
                 <CustomSelect
-                  width="300px"
+                  width="w-[300px]"
                   options={CurrencyOptions}
                   value={isCurrencyselected}
                   onChange={(val) => {
@@ -398,7 +398,7 @@ export default function Header() {
               <div className="flex justify-between items-center mb-5">
                 <h2 className="text-xl text-[#ccc]">Language</h2>
                 <CustomSelect
-                  width="280px"
+                  width="-[280px]"
                   options={languageOptions}
                   value={isLanguageselected}
                   onChange={(val) => {
@@ -409,7 +409,7 @@ export default function Header() {
               <div className="flex justify-between items-center mb-5">
                 <h2 className="text-xl text-[#ccc]">Colors</h2>
                 <CustomSelect
-                  width="300px"
+                  width="w-[220px]"
                   options={ColorOptions}
                   value={isColorselected}
                   onChange={(val) => {
@@ -420,7 +420,7 @@ export default function Header() {
               <div className="flex justify-between items-center mb-5">
                 <h2 className="text-xl text-[#ccc]">Stablecoins</h2>
                 <CustomSelect
-                  width="200px"
+                  width="w-full"
                   options={SubCoinOptions}
                   value={isHideselected}
                   onChange={(val) => {
