@@ -85,7 +85,7 @@ export default function CryptoTable() {
 
   const SortableHeader = ({ label, column }: { label: string; column: string }) => (
     <th
-      className="p-3 md:w-[300px] lg:w-[300px] xl:w-auto relative text-lg whitespace-nowrap font-medium transition-all ease-in text-white group cursor-pointer group hover:bg-[#ffffff6d]"
+      className="py-2 p-1 md:w-[300px] lg:w-[300px] xl:w-auto relative md:text-sm lg:text-[10px] xl:text-lg whitespace-nowrap font-medium transition-all ease-in text-white group cursor-pointer group hover:bg-[#ffffff6d]"
       onClick={() => handleSort(column)}
     >
       <div className="inline-block mr-2 transform transition duration-200">
@@ -96,7 +96,7 @@ export default function CryptoTable() {
   );
 
   return (
-    <div className="overflow-x-auto w-full px-4 md:w-[80%] m-auto lg:w-full">
+    <div className="overflow-x-auto w-full px-4 md:w-full lg:w-[90%] xl:w-full m-auto">
       <table className="min-w-full text-sm text-left text-white rounded-md">
         <thead className="bg-[#ffffff1f] sticky top-1 text-white text-xs uppercase">
           <tr>
@@ -111,24 +111,24 @@ export default function CryptoTable() {
             <SortableHeader label="Month" column="month" />
             <SortableHeader label="Year" column="year" />
             <th className="p-3 text-lg font-medium text-white"></th>
-            <th className="p-3 text-lg font-medium text-white">Links & Trade</th>
+            <th className="p-3 md:text-sm lg:text-[10px] xl:text-lg font-medium text-white">Links & Trade</th>
           </tr>
         </thead>
         <tbody>
           {sortedData.map((coin, idx) => (
             <tr key={idx} className="border-b border-gray-700 hover:bg-gray-800 bg-[#222] relative">
-              <td className="p-3 ">
+              <td className="p-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-base mr-2 flex flex-col justify-center items-center text-blue-500">
+                  <span className="md:text-sm lg:text-[10px] xl:text-base mr-2 flex flex-col justify-center items-center text-blue-500">
                     {coin.rank}
                     <IoIosArrowDown />
                   </span>
                   {coin.id}
                 </div>
               </td>
-              <td className="p-3 w-[400px] flex items-center gap-2 relative">
+              <td className="p-1 md:w-[200px] lg:w-[200px] flex items-center gap-2 relative">
                 <button
-                  className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
+                  className="md:w-7 md:h-7 lg:w-7 lg:h-7 xl:w-10 xl:h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
                   onClick={() => setOpenDropdownIdx(openDropdownIdx === idx ? null : idx)}
                 >
                   <FiPlus />
@@ -145,9 +145,8 @@ export default function CryptoTable() {
                   </div>
                 )}
 
-                {/* 🟢 Clickable Coin Name for Modal */}
                 <span
-                  className="text-lg p-2 w-fit font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all cursor-pointer"
+                  className="md:text-sm lg:text-[10px] xl:text-lg md:p-1 lg:p-1 xl:p-2  w-fit font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all cursor-pointer"
                   onClick={() => {
                     setSelectedCoin({ ...coin, id: String(coin.id) });
                     setIsCoinModalOpen(true);
@@ -159,29 +158,29 @@ export default function CryptoTable() {
               </td>
 
               {/* Remaining TDs... (no change) */}
-              <td className="p-3 text-lg font-medium text-white">{coin.price}</td>
-              <td className="p-3 text-lg font-medium text-white">{coin.marketCap}</td>
-              <td className="p-3 text-lg font-medium text-white">{coin.volume}</td>
-              <td className={`p-3 text-lg font-medium text-white text-center ${getColorClass(coin.hour)}`}>{coin.hour}</td>
-              <td className={`p-3 text-lg font-medium text-white text-center ${getColorClass(coin.day)}`}>{coin.day}</td>
-              <td className={`p-3 text-lg font-medium text-white text-center ${getColorClass(coin.week)}`}>{coin.week}</td>
-              <td className={`p-3 text-lg font-medium text-white text-center ${getColorClass(coin.month)}`}>{coin.month}</td>
-              <td className={`p-3 text-lg font-medium text-white text-center ${getColorClass(coin.year)}`}>{coin.year}</td>
-              <td className="p-3 text-lg font-medium text-white flex gap-2">
+              <td className="p-1  md:text-sm lg:text-xs xl:text-lg font-medium text-white">{coin.price}</td>
+              <td className="p-1  md:text-sm lg:text-xs xl:text-lg font-medium text-white">{coin.marketCap}</td>
+              <td className="p-1  md:text-sm lg:text-xs xl:text-lg font-medium text-white">{coin.volume}</td>
+              <td className={`p-1 md:text-sm lg:text-xs xl:text-lg font-medium text-white text-center ${getColorClass(coin.hour)}`}>{coin.hour}</td>
+              <td className={`p-1 md:text-sm lg:text-xs xl:text-lg font-medium text-white text-center ${getColorClass(coin.day)}`}>{coin.day}</td>
+              <td className={`p-1 md:text-sm lg:text-xs xl:text-lg font-medium text-white text-center ${getColorClass(coin.week)}`}>{coin.week}</td>
+              <td className={`p-1 md:text-sm lg:text-xs xl:text-lg font-medium text-white text-center ${getColorClass(coin.month)}`}>{coin.month}</td>
+              <td className={`p-1 md:text-sm lg:text-xs xl:text-lg font-medium text-white text-center ${getColorClass(coin.year)}`}>{coin.year}</td>
+              <td className="p-1 md:text-sm lg:text-xs xl:text-lg font-medium text-white flex gap-2">
                 {coin.links.map((link, i) => (
                   <a
                     key={i}
                     href={link.links}
                     target="_blank"
-                    className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
+                    className="md:w-7 md:h-7 lg:w-7 lg:h-7 xl:w-10 xl:h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
                   >
-                    <img src={link.icon} alt={link.links} className="w-5 h-5" />
+                    <img src={link.icon} alt={link.links} className="w-[50%] h-[50%]" />
                   </a>
                 ))}
               </td>
-              <td className="p-3 text-lg font-medium text-white text-center relative">
+              <td className="p-1 md:text-sm lg:text-xs xl:text-lg font-medium text-white text-center relative">
                 <div
-                  className="py-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex gap-3 justify-center items-center transition-all"
+                  className="py-1 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex gap-3 justify-center items-center transition-all"
                   onClick={() => setOpenTradeDropdownIdx(openTradeDropdownIdx === idx ? null : idx)}
                 >
                   <div className="flex gap-2">
