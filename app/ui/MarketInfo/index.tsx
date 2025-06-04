@@ -1,12 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-
 import { Tabledata } from "@/app/constant";
 import { Eye, Star, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import { MdArrowForwardIos } from "react-icons/md";
+import Modal from "@/app/components/model";
+import TokenInput from "../token";
 
 const watchlists = [
   { name: "Favorites", icon: <Star size={16} /> },
@@ -47,6 +48,11 @@ export default function CryptoTable() {
   const [openDropdownIdx, setOpenDropdownIdx] = useState<number | null>(null);
   const [openTradeDropdownIdx, setOpenTradeDropdownIdx] = useState<number | null>(null);
 
+  // 🆕 Modal states
+  const [isCoinModalOpen, setIsCoinModalOpen] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState<CoinData | null>(null);
+  const [showHeaderOnly, setShowHeaderOnly] = useState(false);
+
   const handleSort = (column: string) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -58,30 +64,22 @@ export default function CryptoTable() {
 
   const parseValue = (val: string | number): number => {
     if (typeof val === "number") return val;
-
-    // Remove $,% and commas
     const cleaned = val.replace(/[$,%]/g, "").replace(/,/g, "").trim().toLowerCase();
-
-    // Handle millions/billions
     if (cleaned.endsWith("m")) return parseFloat(cleaned) * 1_000_000;
     if (cleaned.endsWith("b")) return parseFloat(cleaned) * 1_000_000_000;
     if (cleaned.endsWith("k")) return parseFloat(cleaned) * 1_000;
-
     return parseFloat(cleaned);
   };
+
   const sortedData = [...Tabledata].sort((a, b) => {
     if (!sortColumn) return 0;
-
     const aVal = a[sortColumn as keyof CoinData];
     const bVal = b[sortColumn as keyof CoinData];
-
     const parsedA = parseValue(aVal as string | number);
     const parsedB = parseValue(bVal as string | number);
-
     if (isNaN(parsedA) || isNaN(parsedB)) {
       return sortDirection === "asc" ? String(aVal).localeCompare(String(bVal)) : String(bVal).localeCompare(String(aVal));
     }
-
     return sortDirection === "asc" ? parsedA - parsedB : parsedB - parsedA;
   });
 
@@ -138,11 +136,21 @@ export default function CryptoTable() {
                     ))}
                   </div>
                 )}
-                <span className="text-lg p-2 font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all">
+
+                {/* 🟢 Clickable Coin Name for Modal */}
+                <span
+                  className="text-lg p-2 font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all cursor-pointer"
+                  onClick={() => {
+                    setSelectedCoin({ ...coin, id: String(coin.id) }); // <-- FIXED
+                    setIsCoinModalOpen(true);
+                  }}
+                >
                   <img src={coin.icon} alt="icon" className="w-5 h-5" />
                   {coin.name}
                 </span>
               </td>
+
+              {/* Remaining TDs... (no change) */}
               <td className="p-3 text-lg font-medium text-white">{coin.price}</td>
               <td className="p-3 text-lg font-medium text-white">{coin.marketCap}</td>
               <td className="p-3 text-lg font-medium text-white">{coin.volume}</td>
@@ -195,6 +203,127 @@ export default function CryptoTable() {
           ))}
         </tbody>
       </table>
+
+      {/* 🔽 Coin Modal */}
+      {isCoinModalOpen && selectedCoin && (
+        <Modal
+          isOpen={isCoinModalOpen}
+          onClose={() => {
+            setIsCoinModalOpen(false);
+            setShowHeaderOnly(false);
+          }}
+          header={
+            <div className="flex gap-4 items-center relative">
+              {/* Arrow Button */}
+              <button
+                className={`w-12 h-12 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all ease-in ${
+                  showHeaderOnly ? "rotate-0" : "rotate-90"
+                }`}
+                onClick={() => setShowHeaderOnly(!showHeaderOnly)}
+              >
+                <MdArrowForwardIos />
+              </button>
+
+              {/* + Dropdown (Watchlist) Button */}
+              <div className="relative">
+                <button
+                  className="w-12 h-12 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
+                  onClick={() => setOpenDropdownIdx(openDropdownIdx === -1 ? null : -1)} // -1 to indicate modal dropdown
+                >
+                  +
+                </button>
+                {openDropdownIdx === -1 && (
+                  <div className="absolute left-0 top-14 z-10 w-56 bg-[#444444] rounded-md shadow-lg">
+                    {watchlists.map((item) => (
+                      <div key={item.name} className="flex items-center text-lg px-3 py-2 hover:bg-[#3a3a3a] cursor-pointer" onClick={() => setOpenDropdownIdx(null)}>
+                        {item.icon}
+                        <span className="ml-2">{item.name}</span>
+                        <span className="ml-auto text-2xl text-white">+</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Coin Name */}
+              <h3 className="flex gap-2 items-center text-xl text-white">
+                <img src={selectedCoin.icon} alt="coin" className="w-6 h-6 rounded-full" />
+                {selectedCoin.name}
+              </h3>
+            </div>
+          }
+        >
+          {/* 🔽 Modal Body Content */}
+          {!showHeaderOnly && (
+            <div className="mt-4 text-white space-y-2">
+              <div className="flex flex-wrap gap-8 mt-6 justify-center text-center">
+                <div>
+                  <h4 className="text-lg font-semibold mb-2">Links</h4>
+                  <div className="flex gap-3 flex-wrap">
+                    {selectedCoin.links.map((link, i) => (
+                      <a key={i} href={link.links} className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white flex justify-center items-center transition-all">
+                        <img src={link.icon} alt={link.links} className="w-5 h-5" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative">
+                  <h4 className="text-lg font-semibold mb-2">Trade</h4>
+                  <div
+                    className="py-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex gap-3 justify-center items-center transition-all cursor-pointer"
+                    onClick={() => setOpenTradeDropdownIdx(openTradeDropdownIdx === -1 ? null : -1)}
+                  >
+                    <div className="flex gap-2">
+                      {selectedCoin.tradeList.map((img) => (
+                        <Image key={img.icon} className="shrink-0" width={25} height={25} src={`/${img.icon}`} alt="Reg-img" />
+                      ))}
+                    </div>
+                  </div>
+
+                  {openTradeDropdownIdx === -1 && (
+                    <div className="absolute left-0 top-14 z-10 w-64 bg-[#444444] rounded-md shadow-lg">
+                      {selectedCoin.tradeList.map((item) => (
+                        <a
+                          href={item.link}
+                          key={item.name}
+                          className="flex items-center justify-between text-lg px-3 py-2 hover:bg-[#3a3a3a] cursor-pointer"
+                          onClick={() => setOpenTradeDropdownIdx(null)}
+                        >
+                          <span className="flex items-center gap-2">
+                            <Image src={`/${item.icon}`} alt={item.name} width={20} height={20} />
+                            {item.name}
+                          </span>
+                          <span className="flex items-center gap-2">
+                            <span className="mr-2">{item.price}</span>
+                            <IoIosArrowForward size="16px" />
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <TokenInput />
+              </div>
+              <div className="flex justify-between">
+                <div className="">
+                  <span>Rank</span>
+                  <span>1</span>
+                </div>
+                <div>
+                  <span>Market Cap</span>
+                  <span>$2.11T</span>
+                </div>
+                <div>
+                  <span>24h Volume</span>
+                  <span>$24.55B</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </Modal>
+      )}
     </div>
   );
 }
