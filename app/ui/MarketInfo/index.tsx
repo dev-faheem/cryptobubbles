@@ -1,12 +1,11 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-
 import { Tabledata } from "@/app/constant";
 import { Eye, Star, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
+import CoinModal from "./model";
 
 const watchlists = [
   { name: "Favorites", icon: <Star size={16} /> },
@@ -47,6 +46,11 @@ export default function CryptoTable() {
   const [openDropdownIdx, setOpenDropdownIdx] = useState<number | null>(null);
   const [openTradeDropdownIdx, setOpenTradeDropdownIdx] = useState<number | null>(null);
 
+  // 🆕 Modal states
+  const [isCoinModalOpen, setIsCoinModalOpen] = useState(false);
+  const [selectedCoin, setSelectedCoin] = useState<CoinData | null>(null);
+  const [showHeaderOnly, setShowHeaderOnly] = useState(false);
+
   const handleSort = (column: string) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -58,30 +62,22 @@ export default function CryptoTable() {
 
   const parseValue = (val: string | number): number => {
     if (typeof val === "number") return val;
-
-    // Remove $,% and commas
     const cleaned = val.replace(/[$,%]/g, "").replace(/,/g, "").trim().toLowerCase();
-
-    // Handle millions/billions
     if (cleaned.endsWith("m")) return parseFloat(cleaned) * 1_000_000;
     if (cleaned.endsWith("b")) return parseFloat(cleaned) * 1_000_000_000;
     if (cleaned.endsWith("k")) return parseFloat(cleaned) * 1_000;
-
     return parseFloat(cleaned);
   };
+
   const sortedData = [...Tabledata].sort((a, b) => {
     if (!sortColumn) return 0;
-
     const aVal = a[sortColumn as keyof CoinData];
     const bVal = b[sortColumn as keyof CoinData];
-
     const parsedA = parseValue(aVal as string | number);
     const parsedB = parseValue(bVal as string | number);
-
     if (isNaN(parsedA) || isNaN(parsedB)) {
       return sortDirection === "asc" ? String(aVal).localeCompare(String(bVal)) : String(bVal).localeCompare(String(aVal));
     }
-
     return sortDirection === "asc" ? parsedA - parsedB : parsedB - parsedA;
   });
 
@@ -138,11 +134,21 @@ export default function CryptoTable() {
                     ))}
                   </div>
                 )}
-                <span className="text-lg p-2 font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all">
+
+                {/* 🟢 Clickable Coin Name for Modal */}
+                <span
+                  className="text-lg p-2 font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all cursor-pointer"
+                  onClick={() => {
+                    setSelectedCoin({ ...coin, id: String(coin.id) }); // <-- FIXED
+                    setIsCoinModalOpen(true);
+                  }}
+                >
                   <img src={coin.icon} alt="icon" className="w-5 h-5" />
                   {coin.name}
                 </span>
               </td>
+
+              {/* Remaining TDs... (no change) */}
               <td className="p-3 text-lg font-medium text-white">{coin.price}</td>
               <td className="p-3 text-lg font-medium text-white">{coin.marketCap}</td>
               <td className="p-3 text-lg font-medium text-white">{coin.volume}</td>
@@ -195,6 +201,21 @@ export default function CryptoTable() {
           ))}
         </tbody>
       </table>
+
+      {isCoinModalOpen && selectedCoin && (
+        <CoinModal
+          isCoinModalOpen={isCoinModalOpen}
+          setIsCoinModalOpen={setIsCoinModalOpen}
+          selectedCoin={selectedCoin}
+          showHeaderOnly={showHeaderOnly}
+          setShowHeaderOnly={setShowHeaderOnly}
+          watchlists={watchlists}
+          openDropdownIdx={openDropdownIdx}
+          setOpenDropdownIdx={setOpenDropdownIdx}
+          openTradeDropdownIdx={openTradeDropdownIdx}
+          setOpenTradeDropdownIdx={setOpenTradeDropdownIdx}
+        />
+      )}
     </div>
   );
 }
