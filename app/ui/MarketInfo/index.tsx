@@ -1,10 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Tabledata } from "@/app/constant";
 import { Eye, Star, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
-import { IoIosArrowForward } from "react-icons/io";
+import { FiPlus } from "react-icons/fi";
+import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import CoinModal from "./model";
 
 const watchlists = [
@@ -82,16 +84,19 @@ export default function CryptoTable() {
   });
 
   const SortableHeader = ({ label, column }: { label: string; column: string }) => (
-    <th className="p-3 relative text-lg font-medium text-white group cursor-pointer group" onClick={() => handleSort(column)}>
-      {label}
-      <div className="inline-block ml-2 transform transition duration-200">
+    <th
+      className="p-3 md:w-[300px] lg:w-[300px] xl:w-auto relative text-lg whitespace-nowrap font-medium transition-all ease-in text-white group cursor-pointer group hover:bg-[#ffffff6d]"
+      onClick={() => handleSort(column)}
+    >
+      <div className="inline-block mr-2 transform transition duration-200">
         <FaArrowDown className={`transition-transform scale-0 group-hover:scale-100 ${sortColumn === column && sortDirection === "desc" ? "rotate-180" : ""}`} />
       </div>
+      {label}
     </th>
   );
 
   return (
-    <div className="overflow-x-auto w-full px-4">
+    <div className="overflow-x-auto w-full px-4 md:w-[80%] m-auto lg:w-full">
       <table className="min-w-full text-sm text-left text-white rounded-md">
         <thead className="bg-[#ffffff1f] sticky top-1 text-white text-xs uppercase">
           <tr>
@@ -112,16 +117,21 @@ export default function CryptoTable() {
         <tbody>
           {sortedData.map((coin, idx) => (
             <tr key={idx} className="border-b border-gray-700 hover:bg-gray-800 bg-[#222] relative">
-              <td className="p-3">
-                <span className="text-base text-blue-600 mr-4">{coin.rank}</span>
-                {coin.id}
+              <td className="p-3 ">
+                <div className="flex items-center gap-2">
+                  <span className="text-base mr-2 flex flex-col justify-center items-center text-blue-500">
+                    {coin.rank}
+                    <IoIosArrowDown />
+                  </span>
+                  {coin.id}
+                </div>
               </td>
-              <td className="p-3 flex items-center gap-2 relative">
+              <td className="p-3 w-[400px] flex items-center gap-2 relative">
                 <button
                   className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
                   onClick={() => setOpenDropdownIdx(openDropdownIdx === idx ? null : idx)}
                 >
-                  +
+                  <FiPlus />
                 </button>
                 {openDropdownIdx === idx && (
                   <div className="absolute left-0 top-12 z-10 w-56 bg-[#444444] rounded-md shadow-lg">
@@ -137,9 +147,9 @@ export default function CryptoTable() {
 
                 {/* 🟢 Clickable Coin Name for Modal */}
                 <span
-                  className="text-lg p-2 font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all cursor-pointer"
+                  className="text-lg p-2 w-fit font-medium text-white rounded-xl bg-[#ffffff1f] hover:bg-[#ffffff6d] flex gap-2 items-center transition-all cursor-pointer"
                   onClick={() => {
-                    setSelectedCoin({ ...coin, id: String(coin.id) }); // <-- FIXED
+                    setSelectedCoin({ ...coin, id: String(coin.id) });
                     setIsCoinModalOpen(true);
                   }}
                 >
@@ -159,7 +169,12 @@ export default function CryptoTable() {
               <td className={`p-3 text-lg font-medium text-white text-center ${getColorClass(coin.year)}`}>{coin.year}</td>
               <td className="p-3 text-lg font-medium text-white flex gap-2">
                 {coin.links.map((link, i) => (
-                  <a key={i} href={link.links} className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all">
+                  <a
+                    key={i}
+                    href={link.links}
+                    target="_blank"
+                    className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
+                  >
                     <img src={link.icon} alt={link.links} className="w-5 h-5" />
                   </a>
                 ))}
@@ -181,6 +196,7 @@ export default function CryptoTable() {
                       <a
                         href={item.link}
                         key={item.name}
+                        target="_blank"
                         className="flex items-center justify-between text-lg px-3 py-2 hover:bg-[#3a3a3a] cursor-pointer"
                         onClick={() => setOpenTradeDropdownIdx(null)}
                       >

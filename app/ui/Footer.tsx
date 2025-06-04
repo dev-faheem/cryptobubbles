@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export default function Footer() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -54,12 +54,12 @@ export default function Footer() {
             <img src={"/logo64.png"} alt="logo-icon" className="w-6 h-6" />
             <h2 className="font-bold">STABLE STATES</h2>
           </div>
-          <p className="mt-2">
-            Crypto Bubbles is available as a website at <br />
-            <p>cryptobubbles.net and as an app for your phone.</p>
+          <p className="mt-2 text-base">
+            Crypto Bubbles is available as a website at
+            <span>cryptobubbles.net and as an app for your phone.</span>
           </p>
-          <p className="mt-2">No financial advice. Do your own research!</p>
-          <p className="mt-1">Version 2025-5-13-20-14</p>
+          <p className="mt-2 text-base">No financial advice. Do your own research!</p>
+          <p className="mt-1 text-base">Version 2025-5-13-20-14</p>
         </div>
 
         {/* Link section */}

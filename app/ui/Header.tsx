@@ -165,13 +165,13 @@ export default function Header() {
             <Link className="flex gap-2 grow-0 items-center w-[44%]" href={"/"}>
               <Image className="shrink-0" width={40} height={30} src={"/logo64.png"} alt="logo-icon" />
               <div className="flex flex-col justify-center">
-                <h1 className="text-[2em] font-normal uppercase whitespace-nowrap">STABLE STATES</h1>
+                <h1 className="lg:text-[1.5em] text-[2em] font-normal uppercase whitespace-nowrap">STABLE STATES</h1>
               </div>
             </Link>
 
             {/* Search Box */}
             <div className="relative mx-4 flex-grow">
-              <div className="w-[500px] relative inline-flex items-center rounded-[12px] cursor-text border border-[#6c6c6c] focus-within:border-[#09f] transition-colors duration-300">
+              <div className="lg:w-[100%] xl:w-[500px] relative inline-flex items-center rounded-[12px] cursor-text border border-[#6c6c6c] focus-within:border-[#09f] transition-colors duration-300">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2">
                   <svg viewBox="0 0 24 24" className="pointer-events-none h-6 fill-current text-white">
                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
@@ -214,7 +214,7 @@ export default function Header() {
             <div className="flex items-center gap-2 relative">
               <button
                 onClick={goToPrev}
-                className={`px-2 py-1 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center ${
+                className={`p-1 h-8 w-8 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center ${
                   currentValueIndex > 0 ? "" : "invisible"
                 }`}
               >
@@ -336,7 +336,7 @@ export default function Header() {
 
               <button
                 onClick={goToNext}
-                className={`px-2 py-1 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center ${
+                className={`p-1 h-8 w-8  rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center ${
                   currentValueIndex < getArrayByCategory(selectedFilter.category).length - 1 ? "" : "invisible"
                 }`}
               >
@@ -347,9 +347,9 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className=" w-full md:w-[16%] flex items-center justify-end gap-3">
+        <div className=" w-full md:w-[16%] flex items-center justify-end gap-3 ml-2">
           <CustomSelect
-            width="300px"
+            width="w-[300px]"
             options={CurrencyOptions}
             value={isCurrencyselected}
             onChange={(val) => {
