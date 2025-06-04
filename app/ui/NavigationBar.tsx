@@ -1,17 +1,14 @@
 "use client";
 
 import clsx from "clsx";
-import { usePathname } from "next/navigation";
 
 interface NavigationBarProps {
   onClick: () => void;
 }
 
 export default function NavigationBar({ onClick }: NavigationBarProps) {
-  const pathname = usePathname();
-
   const handleScrollToTable = () => {
-    const tableElement = document.getElementById("coins-table");
+    const tableElement = document.getElementById("coins-table-loyout");
     if (tableElement) {
       tableElement.scrollIntoView({ behavior: "smooth" });
     }

@@ -150,7 +150,7 @@ export default function CoinModal({
               <h4 className="text-lg font-semibold mb-2">Links</h4>
               <div className="flex gap-3 flex-wrap">
                 {selectedCoin.links.map((link, i) => (
-                  <a key={i} href={link.links} className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white flex justify-center items-center transition-all">
+                  <a target="_blank" key={i} href={link.links} className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white flex justify-center items-center transition-all">
                     <img src={link.icon} alt={link.links} className="w-5 h-5" />
                   </a>
                 ))}
@@ -159,7 +159,7 @@ export default function CoinModal({
             <div className="relative">
               <h4 className="text-lg font-semibold mb-2">Trade</h4>
               <div
-                className="py-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex gap-3 justify-center items-center transition-all cursor-pointer"
+                className="py-2 px-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex gap-3 justify-center items-center transition-all cursor-pointer"
                 onClick={() => setOpenTradeDropdownIdx(openTradeDropdownIdx === -1 ? null : -1)}
               >
                 <div className="flex gap-2">
@@ -172,7 +172,13 @@ export default function CoinModal({
               {openTradeDropdownIdx === -1 && (
                 <div className="absolute left-0 top-14 z-10 w-64 bg-[#444444] rounded-md shadow-lg">
                   {selectedCoin.tradeList.map((item) => (
-                    <a href={item.link} key={item.name} className="flex items-center justify-between text-lg px-3 py-2 hover:bg-[#3a3a3a] cursor-pointer" onClick={() => setOpenTradeDropdownIdx(null)}>
+                    <a
+                      target="_blank"
+                      href={item.link}
+                      key={item.name}
+                      className="flex items-center justify-between text-lg px-3 py-2 hover:bg-[#3a3a3a] cursor-pointer"
+                      onClick={() => setOpenTradeDropdownIdx(null)}
+                    >
                       <span className="flex items-center gap-2">
                         <Image src={`/${item.icon}`} alt={item.name} width={20} height={20} />
                         {item.name}

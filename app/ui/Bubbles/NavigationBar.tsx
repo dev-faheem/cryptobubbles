@@ -119,7 +119,7 @@ export default function NavigationBar({ bubbleSort, setBubbleSort }: Props) {
 
   return (
     <>
-      <ul className="flex gap-1 w-full fixed bottom-0 left-0 md:static bg-[#222] md:bg-transparent border-none px-[10px]">
+      <ul className="flex gap-1 w-full fixed bottom-0 left-0 md:static bg-[#222] md:bg-transparent border-none px-[10px] pb-3">
         {periodList.map((item, index) => {
           const isSelected = item.sortValue === bubbleSort;
           const isRed = ["day", "week"].includes(item.label.toLowerCase());
@@ -141,13 +141,13 @@ export default function NavigationBar({ bubbleSort, setBubbleSort }: Props) {
           );
         })}
         <li>
-          <button className="w-12 h-12 ml-4 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white flex items-center justify-center" onClick={handleEditClick}>
+          <button className="w-12 h-12 ml-5 mt-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white flex items-center justify-center" onClick={handleEditClick}>
             <MdModeEdit size="25px" />
           </button>
         </li>
         <li>
           <button
-            className="w-12 h-12 ml-4 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg font-normal flex justify-center transition-all ease-in items-center"
+            className="w-12 h-12 ml-4 mt-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg font-normal flex justify-center transition-all ease-in items-center"
             onClick={handleAddClick}
           >
             <FiPlus size="25px" />
@@ -164,7 +164,7 @@ export default function NavigationBar({ bubbleSort, setBubbleSort }: Props) {
         }}
         header={
           <>
-            <div className="flex gap-4 items-center w-full">
+            <div className="flex gap-4 items-center w-[90%]">
               <button
                 className={`w-12 h-12 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg  font-normal flex justify-center transition-all ease-in items-center ${
                   showHeaderOnly ? "rotate-0" : "rotate-90"
@@ -174,7 +174,7 @@ export default function NavigationBar({ bubbleSort, setBubbleSort }: Props) {
                 <MdArrowForwardIos />
               </button>
               <div className="flex items-center justify-between gap-2 w-[85%]">
-                <div className="relative w-[85%] group">
+                <div className="relative w-[82%] group">
                   <span className="absolute left-3 h-full flex items-center">
                     <MdModeEdit size={25} className="group-focus:text-blue-500" />
                   </span>
@@ -182,11 +182,11 @@ export default function NavigationBar({ bubbleSort, setBubbleSort }: Props) {
                     type="text"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    className="bg-zinc-800 text-white outline-none rounded-lg py-3 pl-10 border border-transparent w-full pr-10"
+                    className="bg-zinc-800 text-white capitalize outline-none rounded-lg py-3 pl-10 border border-transparent w-full pr-10"
                     placeholder="Type label..."
                   />
                   {value && (
-                    <button onClick={() => setValue("")} className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-red-400">
+                    <button onClick={() => setValue("")} className="absolute p-1.5 rounded-full right-2 top-1/2 -translate-y-1/2 bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white">
                       <IoClose size={20} />
                     </button>
                   )}
@@ -203,14 +203,16 @@ export default function NavigationBar({ bubbleSort, setBubbleSort }: Props) {
         {!showHeaderOnly && (
           <>
             {actionList.map((section, idx) => (
-              <div className="mt-4" key={idx}>
+              <div className="mt-5" key={idx}>
                 <h2 className="text-xl text-[#ccc] mb-2">{section.title}</h2>
                 <div className="flex flex-wrap gap-3">
                   {section.action.map((label) => (
                     <button
                       key={label}
                       onClick={() => handleOptionClick(section.key as keyof SettingState, value || label)}
-                      className={`text-white text-base py-2 px-4 rounded-lg transition ${settings[section.key as keyof SettingState] === label ? "bg-blue-600" : "bg-[#ffffff1f] hover:bg-[#ffffff6d]"}`}
+                      className={`text-white text-base py-2 px-4 rounded-lg transition ${
+                        settings[section.key as keyof SettingState] === label ? "bg-blue-600" : "bg-[#ffffff1f] hover:bg-[#ffffff6d]"
+                      }`}
                     >
                       {label}
                     </button>

@@ -158,7 +158,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="pl-4 pr-4 bg-[#444] flex justify-between items-center border-b border-lime-400 w-full relative font-[Verdana,sans-serif] h-[54px]">
+      <div className="pl-4 pr-4 bg-[#444] shadow-lg flex justify-between items-center border-b border-lime-400 w-full relative font-[Verdana,sans-serif] h-[54px]">
         <div className="relative w-full">
           <div className="pl-4 pr-4 bg-[#444] flex justify-between items-center border-b border-lime-400 w-full font-[Verdana,sans-serif] h-[54px]">
             {/* Logo */}
@@ -240,7 +240,7 @@ export default function Header() {
 
                   {/* ✅ Your original dropdown content */}
                   {showFiltersDropdown && (
-                    <div className="absolute z-50 mt-2 w-[800px] h-[420px] justify-between bg-[#444444e6] border border-lime-400 rounded-md shadow-lg text-white flex right-[8px] overflow-y-scroll backdrop-blur-md">
+                    <div className="absolute z-50 mt-2 w-[800px] min-h-[420px] justify-between bg-[#444444e6] border border-lime-400 rounded-md shadow-lg text-white flex right-[8px] overflow-y-scroll backdrop-blur-md">
                       {/* Pages */}
                       <div>
                         <div className="flex justify-between items-end py-[15px] px-[20px] pb-[5px] text-gray-300">
@@ -398,7 +398,7 @@ export default function Header() {
               <div className="flex justify-between items-center mb-5">
                 <h2 className="text-xl text-[#ccc]">Language</h2>
                 <CustomSelect
-                  width="-[280px]"
+                  width="w-[200px]"
                   options={languageOptions}
                   value={isLanguageselected}
                   onChange={(val) => {
@@ -485,7 +485,7 @@ export default function Header() {
                         <input type="text" className="bg-zinc-800 text-white rounded-lg py-3 px-2 w-full pr-10" placeholder="Paste exported data here" />
                       </div>
                     </div>
-                    <button className={`w-fit hover:bg-[#ffffff6d] text-white text-xl py-2 px-4 rounded-lg transition flex items-center gap-3 `}>Data is Empty</button>
+                    <button className={`w-fit hover:bg-[#ffffff6d] text-white text-xl py-2 px-4 rounded-lg transition flex items-center gap-3 mt-2`}>Data is Empty</button>
                   </div>
                 )}
               </div>
@@ -507,7 +507,7 @@ export default function Header() {
                 {isTooltipActive.generate && (
                   <div className="absolute w-[80%] bottom-10 bg-[#444444a9] backdrop-blur-md text-white text-xl p-4 shadow-xl rounded-md transition-all">
                     <p>Full experience</p>
-                    <div className="relative w-[90%]">
+                    <div className="relative w-[90%] my-2">
                       <input type="text" className="bg-zinc-800 text-white rounded-lg py-3 px-2 w-full pr-10" />
                       <button className="absolute top-0 bottom-0 m-auto right-3 w-8 h-8 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-sm font-normal flex justify-center transition-all ease-in items-center">
                         <FaCopy />

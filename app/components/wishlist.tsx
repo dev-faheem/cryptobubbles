@@ -45,7 +45,7 @@ export default function Watchlists({ isWishListOption, setIsWishListOption }: IP
       </div>
 
       {isWishListOption.map((wish, index) => (
-        <div className="flex items-center justify-between gap-2 mt-3" key={index}>
+        <div className="flex items-center justify-between gap-5 mt-3" key={index}>
           <div className="relative w-[90%]">
             <input
               type="text"
@@ -55,7 +55,7 @@ export default function Watchlists({ isWishListOption, setIsWishListOption }: IP
               placeholder={`Watchlist ${index + 1}`}
             />
             {wish.item && (
-              <button onClick={() => handleClearInput(index)} className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-red-400">
+              <button onClick={() => handleClearInput(index)} className="absolute p-1.5 rounded-full right-2 top-1/2 -translate-y-1/2 bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white">
                 <IoClose size={20} />
               </button>
             )}

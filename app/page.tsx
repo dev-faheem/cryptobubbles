@@ -35,7 +35,9 @@ export default async function Main() {
   return (
     <>
       <Bubbles coins={stablecoins} />
-      <MarketInfo />
+      <div id="coins-table-loyout">
+        <MarketInfo />
+      </div>
     </>
   );
 }

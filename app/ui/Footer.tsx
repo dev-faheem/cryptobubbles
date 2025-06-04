@@ -55,8 +55,8 @@ export default function Footer() {
             <h2 className="font-bold">STABLE STATES</h2>
           </div>
           <p className="mt-2 text-base">
-            Crypto Bubbles is available as a website at
-            <span>cryptobubbles.net and as an app for your phone.</span>
+            Stable States is available as a website at
+            <span>Stablestates.com and as an app for your phone.</span>
           </p>
           <p className="mt-2 text-base">No financial advice. Do your own research!</p>
           <p className="mt-1 text-base">Version 2025-5-13-20-14</p>
@@ -151,7 +151,7 @@ export default function Footer() {
             href="https://x.com/intent/follow?screen_name=CryptoBubbles"
             className="inline-flex items-center gap-[5px] rounded-[12px] bg-[#ffffff1f] transition-colors duration-400 p-[10px] px-[15px] whitespace-nowrap mb-[10px]"
           >
-            Follow Crypto Bubbles on X
+            Follow Stable States on X
           </a>
 
           <button onClick={toggleDropdown} className="bg-[#ffffff1f] px-4 py-2 rounded-[12px] text-left flex justify-center gap-[10px] items-center w-[350px]">
