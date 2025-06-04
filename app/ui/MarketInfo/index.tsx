@@ -5,9 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
-import { MdArrowForwardIos } from "react-icons/md";
-import Modal from "@/app/components/model";
-import TokenInput from "../token";
+import CoinModal from "./model";
 
 const watchlists = [
   { name: "Favorites", icon: <Star size={16} /> },
@@ -204,125 +202,19 @@ export default function CryptoTable() {
         </tbody>
       </table>
 
-      {/* 🔽 Coin Modal */}
       {isCoinModalOpen && selectedCoin && (
-        <Modal
-          isOpen={isCoinModalOpen}
-          onClose={() => {
-            setIsCoinModalOpen(false);
-            setShowHeaderOnly(false);
-          }}
-          header={
-            <div className="flex gap-4 items-center relative">
-              {/* Arrow Button */}
-              <button
-                className={`w-12 h-12 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all ease-in ${
-                  showHeaderOnly ? "rotate-0" : "rotate-90"
-                }`}
-                onClick={() => setShowHeaderOnly(!showHeaderOnly)}
-              >
-                <MdArrowForwardIos />
-              </button>
-
-              {/* + Dropdown (Watchlist) Button */}
-              <div className="relative">
-                <button
-                  className="w-12 h-12 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex justify-center items-center transition-all"
-                  onClick={() => setOpenDropdownIdx(openDropdownIdx === -1 ? null : -1)} // -1 to indicate modal dropdown
-                >
-                  +
-                </button>
-                {openDropdownIdx === -1 && (
-                  <div className="absolute left-0 top-14 z-10 w-56 bg-[#444444] rounded-md shadow-lg">
-                    {watchlists.map((item) => (
-                      <div key={item.name} className="flex items-center text-lg px-3 py-2 hover:bg-[#3a3a3a] cursor-pointer" onClick={() => setOpenDropdownIdx(null)}>
-                        {item.icon}
-                        <span className="ml-2">{item.name}</span>
-                        <span className="ml-auto text-2xl text-white">+</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Coin Name */}
-              <h3 className="flex gap-2 items-center text-xl text-white">
-                <img src={selectedCoin.icon} alt="coin" className="w-6 h-6 rounded-full" />
-                {selectedCoin.name}
-              </h3>
-            </div>
-          }
-        >
-          {/* 🔽 Modal Body Content */}
-          {!showHeaderOnly && (
-            <div className="mt-4 text-white space-y-2">
-              <div className="flex flex-wrap gap-8 mt-6 justify-center text-center">
-                <div>
-                  <h4 className="text-lg font-semibold mb-2">Links</h4>
-                  <div className="flex gap-3 flex-wrap">
-                    {selectedCoin.links.map((link, i) => (
-                      <a key={i} href={link.links} className="w-10 h-10 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white flex justify-center items-center transition-all">
-                        <img src={link.icon} alt={link.links} className="w-5 h-5" />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-                <div className="relative">
-                  <h4 className="text-lg font-semibold mb-2">Trade</h4>
-                  <div
-                    className="py-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg flex gap-3 justify-center items-center transition-all cursor-pointer"
-                    onClick={() => setOpenTradeDropdownIdx(openTradeDropdownIdx === -1 ? null : -1)}
-                  >
-                    <div className="flex gap-2">
-                      {selectedCoin.tradeList.map((img) => (
-                        <Image key={img.icon} className="shrink-0" width={25} height={25} src={`/${img.icon}`} alt="Reg-img" />
-                      ))}
-                    </div>
-                  </div>
-
-                  {openTradeDropdownIdx === -1 && (
-                    <div className="absolute left-0 top-14 z-10 w-64 bg-[#444444] rounded-md shadow-lg">
-                      {selectedCoin.tradeList.map((item) => (
-                        <a
-                          href={item.link}
-                          key={item.name}
-                          className="flex items-center justify-between text-lg px-3 py-2 hover:bg-[#3a3a3a] cursor-pointer"
-                          onClick={() => setOpenTradeDropdownIdx(null)}
-                        >
-                          <span className="flex items-center gap-2">
-                            <Image src={`/${item.icon}`} alt={item.name} width={20} height={20} />
-                            {item.name}
-                          </span>
-                          <span className="flex items-center gap-2">
-                            <span className="mr-2">{item.price}</span>
-                            <IoIosArrowForward size="16px" />
-                          </span>
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="flex justify-center">
-                <TokenInput />
-              </div>
-              <div className="flex justify-between">
-                <div className="">
-                  <span>Rank</span>
-                  <span>1</span>
-                </div>
-                <div>
-                  <span>Market Cap</span>
-                  <span>$2.11T</span>
-                </div>
-                <div>
-                  <span>24h Volume</span>
-                  <span>$24.55B</span>
-                </div>
-              </div>
-            </div>
-          )}
-        </Modal>
+        <CoinModal
+          isCoinModalOpen={isCoinModalOpen}
+          setIsCoinModalOpen={setIsCoinModalOpen}
+          selectedCoin={selectedCoin}
+          showHeaderOnly={showHeaderOnly}
+          setShowHeaderOnly={setShowHeaderOnly}
+          watchlists={watchlists}
+          openDropdownIdx={openDropdownIdx}
+          setOpenDropdownIdx={setOpenDropdownIdx}
+          openTradeDropdownIdx={openTradeDropdownIdx}
+          setOpenTradeDropdownIdx={setOpenTradeDropdownIdx}
+        />
       )}
     </div>
   );
