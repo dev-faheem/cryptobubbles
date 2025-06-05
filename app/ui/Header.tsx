@@ -113,32 +113,26 @@ export default function Header() {
   };
 
   const goToNext = () => {
-    const arr = getArrayByCategory(selectedFilter.category);
-    const currentValueIndex = arr.indexOf(selectedFilter.value);
-
-    if (currentValueIndex < arr.length - 1) {
-      setSelectedFilter({ category: selectedFilter.category, value: arr[currentValueIndex + 1] });
-    } else {
-      const nextCategoryIndex = (currentCategoryIndex + 1) % categories.length;
-      const nextCategory = categories[nextCategoryIndex];
-      const nextArr = getArrayByCategory(nextCategory);
-      setSelectedFilter({ category: nextCategory, value: nextArr[0] });
+    if (currentIndex < allFilterOptions.length - 1) {
+      const next = allFilterOptions[currentIndex + 1];
+      setSelectedFilter(next);
     }
   };
 
   const goToPrev = () => {
-    const arr = getArrayByCategory(selectedFilter.category);
-    const currentValueIndex = arr.indexOf(selectedFilter.value);
-
-    if (currentValueIndex > 0) {
-      setSelectedFilter({ category: selectedFilter.category, value: arr[currentValueIndex - 1] });
-    } else {
-      const prevCategoryIndex = (currentCategoryIndex - 1 + categories.length) % categories.length;
-      const prevCategory = categories[prevCategoryIndex];
-      const prevArr = getArrayByCategory(prevCategory);
-      setSelectedFilter({ category: prevCategory, value: prevArr[prevArr.length - 1] });
+    if (currentIndex > 0) {
+      const prev = allFilterOptions[currentIndex - 1];
+      setSelectedFilter(prev);
     }
   };
+
+  const allFilterOptions: { category: FilterCategory; value: string }[] = [
+    ...pages.map((value) => ({ category: "pages" as FilterCategory, value })),
+    ...lists.map((value) => ({ category: "lists" as FilterCategory, value })),
+    ...exchanges.map((value) => ({ category: "exchanges" as FilterCategory, value })),
+  ];
+
+  const currentIndex = allFilterOptions.findIndex((f) => f.category === selectedFilter.category && f.value === selectedFilter.value);
 
   const onFilterSelect = (category: FilterCategory, value: string) => {
     setSelectedFilter({ category, value });
@@ -212,16 +206,13 @@ export default function Header() {
 
             {/* Filter & Arrows */}
             <div className="flex items-center gap-2 relative">
-              <button
-                onClick={goToPrev}
-                className={`p-1 h-8 w-8 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center ${
-                  currentValueIndex > 0 ? "" : "invisible"
-                }`}
-              >
-                <svg viewBox="0 0 24 24" className="pointer-events-none h-6 fill-current text-white">
-                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
-                </svg>
-              </button>
+              {currentIndex > 0 && (
+                <button onClick={goToPrev} className="p-1 h-8 w-8 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center">
+                  <svg viewBox="0 0 24 24" className="pointer-events-none h-6 fill-current text-white">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                  </svg>
+                </button>
+              )}
               {/* Filters Dropdown */}
               <div className="flex items-center gap-2 relative">
                 {/* Filter Button + Dropdown */}
@@ -334,16 +325,13 @@ export default function Header() {
                 </div>
               </div>
 
-              <button
-                onClick={goToNext}
-                className={`p-1 h-8 w-8  rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center ${
-                  currentValueIndex < getArrayByCategory(selectedFilter.category).length - 1 ? "" : "invisible"
-                }`}
-              >
-                <svg viewBox="0 0 24 24" className="pointer-events-none h-6 fill-current text-white">
-                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
-                </svg>
-              </button>
+              {currentIndex < allFilterOptions.length - 1 && (
+                <button onClick={goToNext} className="p-1 h-8 w-8 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff33] transition-colors duration-400 m-0 hidden lg:inline-flex justify-center">
+                  <svg viewBox="0 0 24 24" className="pointer-events-none h-6 fill-current text-white">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                  </svg>
+                </button>
+              )}
             </div>
           </div>
         </div>
