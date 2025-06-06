@@ -12,3 +12,4 @@ export const convertToUSD = (value: number, max: number = 2) => {
     maximumFractionDigits: max,
   }).format(value);
 };
+

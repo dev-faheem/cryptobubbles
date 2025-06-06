@@ -31,7 +31,6 @@ export default function Bubbles({ coins = [] }: Props) {
     if (coins) {
       const scalingFactor = BubblesUtils.getScalingFactor(coins, PriceChangePercentage.HOUR);
       const shapes = BubblesUtils.generateCircles(coins, scalingFactor);
-      console.log(shapes, "shapes>>>>>>>>>>>>>>>>>");
       setCircles(shapes);
     }
   }, [coins]);
@@ -56,8 +55,12 @@ export default function Bubbles({ coins = [] }: Props) {
 
     for (let i = 0; i < circles.length; i++) {
       const circle = circles[i];
-
       const container = PixiUtils.createContainer(circle);
+
+      // Add event listener here
+      container.on("pointertap", () => {
+        console.log("Bubble clicked:", circle);
+      });
 
       const imageSprite = PixiUtils.createImageSprite(circle);
       imageSprites.push(imageSprite);
@@ -68,16 +71,13 @@ export default function Bubbles({ coins = [] }: Props) {
       circleGraphics.push(circleGraphic);
       container.addChild(circleGraphic);
 
-      // Create the text
       const text = PixiUtils.createText(circle);
-      container.addChild(text);
       textSprites.push(text);
+      container.addChild(text);
 
-      // Create the second text
       const text2 = PixiUtils.createText2(circle, PriceChangePercentage.HOUR);
-
-      container.addChild(text2);
       text2Sprites.push(text2);
+      container.addChild(text2);
 
       (app as PIXI.Application<PIXI.ICanvas>).stage.addChild(container);
     }
@@ -114,9 +114,9 @@ export default function Bubbles({ coins = [] }: Props) {
   }, [bubbleSort, coins, circles, scalingFactor]);
 
   return (
-    <div className="flex rounded overflow-hidden bg-[#222] md:flex-col flex-col-reverse">
+    <div className="flex rounded xl:h-auto overflow-hidden bg-[#222] flex-col ">
       <NavigationBar bubbleSort={bubbleSort} setBubbleSort={setBubbleSort} />
-      <div className="bg-[#222] w-full overflow-hidden border-2 rounded border-gray-800" ref={appRef}></div>
+      <div className="bg-[#222] w-full overflow-hidden border-2 rounded border-gray-800 canvas-full" ref={appRef}></div>
       {isLoading && <Loader />}
     </div>
   );

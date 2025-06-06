@@ -1,5 +1,7 @@
 "use client";
 
+import { useIsSmallDevice } from "@/app/lib/hooks";
+import { useToggleStore } from "@/app/lib/store/useToggleStore";
 import Bubbles from "./Bubbles";
 
 type Props = {
@@ -7,9 +9,7 @@ type Props = {
 };
 
 export default function BubblesPage({ coins }: Props) {
-  return (
-    <div>
-      <Bubbles coins={coins} />
-    </div>
-  );
+  const { activeTab } = useToggleStore();
+  const isSmall = useIsSmallDevice();
+  return <div>{isSmall ? <>{activeTab === "bubbles" && <Bubbles coins={coins} />}</> : <Bubbles coins={coins} />}</div>;
 }

@@ -31,7 +31,6 @@ async function getCoins(): Promise<CoingeckoCoinData[]> {
 
 export default async function Main() {
   const stablecoins = await getCoins();
-
   return (
     <>
       <Bubbles coins={stablecoins} />

@@ -119,41 +119,42 @@ export default function NavigationBar({ bubbleSort, setBubbleSort }: Props) {
 
   return (
     <>
-      <ul className="flex gap-1 w-full fixed bottom-0 left-0 md:static bg-[#222] md:bg-transparent border-none px-[10px] pb-3">
-        {periodList.map((item, index) => {
-          const isSelected = item.sortValue === bubbleSort;
-          const isRed = ["day", "week"].includes(item.label.toLowerCase());
-          const isGreen = ["hour", "month", "year"].includes(item.label.toLowerCase());
+      <div className="flex gap-1 items-center">
+        <ul className="flex gap-1 bg-[#222] md:bg-transparent border-none overflow-x-auto px-[10px] pb-3 hide-scroll">
+          {periodList.map((item, index) => {
+            const isSelected = item.sortValue === bubbleSort;
+            const isRed = ["day", "week"].includes(item.label.toLowerCase());
+            const isGreen = ["hour", "month", "year"].includes(item.label.toLowerCase());
 
-          return (
-            <li
-              key={index}
-              className={clsx(
-                "text-center cursor-pointer text-white w-1/5 md:w-auto",
-                "rounded-bl-[12px] rounded-br-[12px] py-[10px] px-[15px]",
-                "border-t-transparent border-t-2 border-b-2",
-                isSelected ? (isRed ? "bg-[#a33] border-2 border-[#f66]" : "bg-[#282] border-2 border-[#3f3]") : clsx("bg-zinc-800 border-2", isRed ? "border-[#f66]" : "border-[#3f3]")
-              )}
-              onClick={() => setBubbleSort(item.sortValue)}
-            >
-              <span className="font-normal text-[20px]">{item.label.toUpperCase()}</span>
-            </li>
-          );
-        })}
-        <li>
-          <button className="w-12 h-12 ml-5 mt-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white flex items-center justify-center" onClick={handleEditClick}>
-            <MdModeEdit size="25px" />
-          </button>
-        </li>
-        <li>
-          <button
-            className="w-12 h-12 ml-4 mt-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg font-normal flex justify-center transition-all ease-in items-center"
-            onClick={handleAddClick}
-          >
-            <FiPlus size="25px" />
-          </button>
-        </li>
-      </ul>
+            return (
+              <li
+                key={index}
+                className={clsx(
+                  "text-center text-sm sm:text-base cursor-pointer text-white w-fit px-3 py-[6px]",
+                  "rounded-bl-[10px] rounded-br-[10px]",
+                  "border-t-transparent border-t-2 border-b-2",
+                  isSelected ? (isRed ? "bg-[#a33] border-2 border-[#f66]" : "bg-[#282] border-2 border-[#3f3]") : clsx("bg-zinc-800 border-2", isRed ? "border-[#f66]" : "border-[#3f3]")
+                )}
+                onClick={() => setBubbleSort(item.sortValue)}
+              >
+                <span className="font-normal text-[20px]">{item.label.toUpperCase()}</span>
+              </li>
+            );
+          })}
+        </ul>
+        <button
+          className="!w-[65px] h-[45px] md:!w-12 md:!h-12 lg:!w-12 lg:!h-12 xl:!w-12 xl:!h-12 ml-4 mt-0 md:mt-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg font-normal flex justify-center transition-all ease-in items-center"
+          onClick={handleEditClick}
+        >
+          <MdModeEdit size="25px" />
+        </button>
+        <button
+          className="!w-[65px] h-[45px] md:!w-12 md:!h-12 lg:!w-12 lg:!h-12 xl:!w-12 xl:!h-12 ml-4 mt-0 md:mt-2 rounded-full bg-[#ffffff1f] hover:bg-[#ffffff6d] text-white text-lg font-normal flex justify-center transition-all ease-in items-center"
+          onClick={handleAddClick}
+        >
+          <FiPlus size="25px" />
+        </button>
+      </div>
 
       <Modal
         isOpen={isSettingModel}

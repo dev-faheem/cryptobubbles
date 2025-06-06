@@ -6,13 +6,12 @@
 
 @font-face {
   font-family: verdana;
-  src: url('../../public/verdana-font-family/verdana.woff') format('woff')
+  src: url("../../public/verdana-font-family/verdana.woff") format("woff");
 }
-body{
+body {
   font: 20px Verdana, Arial, sans-serif;
-  
 }
-h2{
+h2 {
   font-size: 1.5em;
 }
 #coins-table {
@@ -38,7 +37,7 @@ h2{
 }
 
 .p-progressbar .p-progressbar-label {
-  line-height: 1.5rem !important; 
+  line-height: 1.5rem !important;
 }
 
 #coins-table .p-progressbar-determinate .p-progressbar-value {
@@ -63,17 +62,26 @@ h2{
     font-size: 12px;
   }
 }
-ul li.selected:nth-child(-n+3) {
+ul li.selected:nth-child(-n + 3) {
   border: 2px solid rgb(255, 102, 102);
   border-top: none;
 }
 
-ul li.selected:nth-child(n+4) {
+ul li.selected:nth-child(n + 4) {
   border: 2px solid rgb(51, 255, 51);
   border-top: none;
 }
 @media only screen and (max-width: 600px) {
-.w-\[63\%\] {
+  .w-\[63\%\] {
     width: 100%;
+  }
 }
+
+.hide-scroll::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.canvas-full canvas {
+  width: 100%;
 }
