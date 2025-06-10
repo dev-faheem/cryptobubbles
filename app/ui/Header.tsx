@@ -278,7 +278,7 @@ export default function Header() {
 
                   {/* ✅ Your original dropdown content */}
                   {showFiltersDropdown && (
-                    <div className="absolute bottom-full left-1 right-auto xl:left-auto xl:top-full xl:right-1 z-50 mt-2 w-[300px] h-[500px] xl:w-[800px] xl:min-h-[420px] justify-between bg-[#444444e6] border border-lime-400 rounded-md shadow-lg text-white flex flex-col xl:flex-row right-[8px] overflow-y-scroll backdrop-blur-md">
+                    <div className="absolute bottom-full left-1 xl:left-auto xl:top-full xl:right-1 z-50 mt-2 w-[300px] h-[500px] xl:w-[800px] xl:min-h-[420px] justify-between bg-[#444444e6] border border-lime-400 rounded-md shadow-lg text-white flex flex-col xl:flex-row right-[8px] overflow-y-scroll backdrop-blur-md">
                       {/* Pages */}
                       <div>
                         <div className="flex justify-between items-end py-[15px] px-[20px] pb-[5px] text-gray-300">
